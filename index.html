@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Profit Split</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Staff Profit Split</h1>
+    </header>
+    <main>
+      <div class="input-group">
+        <label for="gross-profit">Gross Profit ($):</label>
+        <input id="gross-profit" type="text" placeholder="0.00" />
+      </div>
+      <div class="input-group">
+        <label for="tax-rate">Tax Rate (%):</label>
+        <input id="tax-rate" type="text" placeholder="0" />
+      </div>
+      <div class="input-group">
+        <label for="manager-rate">Manager Rate (%):</label>
+        <input id="manager-rate" type="text" placeholder="0" />
+      </div>
+      <div class="result-group">
+        <span>Tax:</span>
+        <span id="tax">$ 0.00</span>
+      </div>
+      <div class="result-group">
+        <span>Net Profit:</span>
+        <span id="net-profit">$ 0.00</span>
+      </div>
+      <div class="result-group">
+        <span>Manager Share:</span>
+        <span id="manager-share">$ 0.00</span>
+      </div>
+      <div class="result-group">
+        <span>Waiter Share:</span>
+        <span id="waiter-share">$ 0.00</span>
+      </div>
+    </main>
+  </div>
+  <script src="./main.js" defer></script>
+</body>
+</html>
