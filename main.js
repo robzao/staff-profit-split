@@ -31,7 +31,6 @@ const calculateShares = (grossProfit, taxRate, managerRate) => {
   const netProfit = grossProfit - taxAmount;
   const managerShare = netProfit * managerRate;
   const waiterShare = netProfit - managerShare;
-  
   return { taxAmount, netProfit, managerShare, waiterShare };
 };
 
@@ -41,11 +40,9 @@ const handleCalculation = () => {
     input.value = sanitized;
     return parseValue(sanitized);
   };
-  
   const grossProfit = sanitizeAndParse(grossProfitInput);
-  const taxRate = sanitizeAndParse(taxRateInput) / 100; 
+  const taxRate = sanitizeAndParse(taxRateInput) / 100;
   const managerRate = sanitizeAndParse(managerRateInput) / 100;
-  
   const result = calculateShares(grossProfit, taxRate, managerRate);
   updateDisplay(result);
 };
