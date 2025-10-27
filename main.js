@@ -1,10 +1,11 @@
-const grossProfitInput = document.getElementById('gross-profit');
-const taxRateInput = document.getElementById('tax-rate');
-const managerRateInput = document.getElementById('manager-rate');
+const grossProfit = document.getElementById('gross-profit');
+const taxRate = document.getElementById('tax-rate');
+const managerRate = document.getElementById('manager-rate');
 const taxDisplay = document.getElementById('tax');
 const netProfitDisplay = document.getElementById('net-profit');
 const managerShareDisplay = document.getElementById('manager-share');
 const waiterShareDisplay = document.getElementById('waiter-share');
+const resetButton = document.getElementById('reset');
 
 const formatCurrency = (value) => `$ ${value.toFixed(2)}`;
 
@@ -13,6 +14,13 @@ const updateDisplay = (result) => {
   netProfitDisplay.textContent = formatCurrency(result.netProfit);
   managerShareDisplay.textContent = formatCurrency(result.managerShare);
   waiterShareDisplay.textContent = formatCurrency(result.waiterShare);
+};
+
+const clearAll = () => {
+  grossProfit.value = '';
+  taxRate.value = '';
+  managerRate.value = '';
+  handleCalculation();
 };
 
 const sanitizeInput = (rawValue) => {
@@ -40,17 +48,18 @@ const handleCalculation = () => {
     input.value = sanitized;
     return parseValue(sanitized);
   };
-  const grossProfit = sanitizeAndParse(grossProfitInput);
-  const taxRate = sanitizeAndParse(taxRateInput) / 100;
-  const managerRate = sanitizeAndParse(managerRateInput) / 100;
-  const result = calculateShares(grossProfit, taxRate, managerRate);
+  const gp = sanitizeAndParse(grossProfit);
+  const tr = sanitizeAndParse(taxRate) / 100;
+  const mr = sanitizeAndParse(managerRate) / 100;
+  const result = calculateShares(gp, tr, mr);
   updateDisplay(result);
 };
 
 const setupEventListeners = () => {
-  grossProfitInput.addEventListener('input', handleCalculation);
-  taxRateInput.addEventListener('input', handleCalculation);
-  managerRateInput.addEventListener('input', handleCalculation);
+  grossProfit.addEventListener('input', handleCalculation);
+  taxRate.addEventListener('input', handleCalculation);
+  managerRate.addEventListener('input', handleCalculation);
+  resetButton.addEventListener('click', clearAll);
 };
 
 const init = () => {
