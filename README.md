@@ -8,15 +8,15 @@ The **Staff Profit Split** is a minimal utility designed to calculate and **dist
 
 ## How It Works
 
-The calculation process requires three main inputs to determine the final distribution. The tax rate and manager share percentage are dynamically set by the user.
+The calculation process requires three main inputs to determine the final distribution. The tax rate and manager share percentage são dynamically set by the user.
 
 ### Input Fields
 
-| Field | Description |
-| :--- | :--- |
-| **Gross Profit ($)** | The total revenue amount before any deductions. |
-| **Tax Rate (%)** | The percentage rate of tax to be deducted from the Gross Profit. |
-| **Manager Rate (%)** | The percentage rate of the Net Profit to be allocated to the manager. |
+| Field | Restriction | Description |
+| :--- | :--- | :--- |
+| **Gross Profit ($)** | Number >= 0 | The total revenue amount before any deductions. |
+| **Tax Rate (%)** | Number >= 0 | The percentage rate of tax to be deducted from the Gross Profit. |
+| **Manager Rate (%)** | Number >= 0 | The percentage rate of the Net Profit to be allocated to the manager. |
 
 ### Calculation Logic
 

@@ -24,30 +24,35 @@ const clearAll = () => {
 };
 
 const sanitizeInput = (rawValue) => {
-  const value = rawValue.replace(/[^\d.]/g, '');
+  let value = rawValue.replace(/[^\d.]/g, '');
   const parts = value.split('.');
-  return parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : value;
+  if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
+  if (value.startsWith('-')) value = value.substring(1);
+  return value;
 };
 
 const parseValue = (sanitizedValue) => {
   const numericValue = parseFloat(sanitizedValue);
-  return isNaN(numericValue) ? 0 : numericValue;
+  return (isNaN(numericValue) || numericValue < 0) ? 0 : numericValue;
 };
 
 const calculateShares = (grossProfit, taxRate, managerRate) => {
   const taxAmount = grossProfit * taxRate;
   const netProfit = grossProfit - taxAmount;
-  const managerShare = netProfit * managerRate;
-  const waiterShare = netProfit - managerShare;
+  const allocableNetProfit = netProfit > 0 ? netProfit : 0;
+  const managerShare = allocableNetProfit * managerRate;
+  const waiterShare = allocableNetProfit - managerShare;
   return { taxAmount, netProfit, managerShare, waiterShare };
 };
 
+const handleInput = (e) => {
+  const input = e.target;
+  input.value = sanitizeInput(input.value);
+  handleCalculation();
+};
+
 const handleCalculation = () => {
-  const sanitizeAndParse = (input) => {
-    const sanitized = sanitizeInput(input.value);
-    input.value = sanitized;
-    return parseValue(sanitized);
-  };
+  const sanitizeAndParse = (input) => parseValue(input.value);
   const gp = sanitizeAndParse(grossProfit);
   const tr = sanitizeAndParse(taxRate) / 100;
   const mr = sanitizeAndParse(managerRate) / 100;
@@ -56,9 +61,9 @@ const handleCalculation = () => {
 };
 
 const setupEventListeners = () => {
-  grossProfit.addEventListener('input', handleCalculation);
-  taxRate.addEventListener('input', handleCalculation);
-  managerRate.addEventListener('input', handleCalculation);
+  grossProfit.addEventListener('input', handleInput);
+  taxRate.addEventListener('input', handleInput);
+  managerRate.addEventListener('input', handleInput);
   resetButton.addEventListener('click', clearAll);
 };
 
